@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+langchain = "==0.0.312"
+uvicorn = "~=0.21.1"
+jq = "*"
+python-multipart = "*"
+openai = "*"
+tiktoken = "*"
+numpy = "*"
+chromadb = "==0.4.14"
+fastapi = "==0.95.2"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
