@@ -1,1 +1,276 @@
-{"openapi": "3.0.2", "info": {"title": "RAG Connector", "version": "0.1.0"}, "paths": {"/api/v1/ingest/chunking": {"post": {"tags": ["Data Ingestion"], "summary": "Split Documents", "description": "This endpoint is used to split a document into multiple documents based on the chunk size", "operationId": "split_documents_api_v1_ingest_chunking_post", "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/DocumentChunker"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"title": "Response Split Documents Api V1 Ingest Chunking Post"}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}}}, "/api/v1/ingest/store": {"post": {"tags": ["Data Ingestion"], "summary": "Create Embeddings", "description": "This endpoint is used to create embeddings for a list of documents, and store them in a vectorstore", "operationId": "create_embeddings_api_v1_ingest_store_post", "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/StoreInVectoDB"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"title": "Response Create Embeddings Api V1 Ingest Store Post"}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}}}, "/api/v1/ingest/chatbot": {"post": {"tags": ["Data Ingestion"], "summary": "Chatbot", "description": "This endpoint is used to fetch the top K documents from a vectorstore, based on a query and then send it as context to the LLM model", "operationId": "chatbot_api_v1_ingest_chatbot_post", "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/ChatBotParameters"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"title": "Response Chatbot Api V1 Ingest Chatbot Post"}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}}}}, "components": {"schemas": {"ChatBotParameters": {"title": "ChatBotParameters", "required": ["vectorstore", "embedding_model", "prompt"], "type": "object", "properties": {"vectorstore": {"title": "Vectorstore", "type": "string"}, "embedding_model": {"title": "Embedding Model", "type": "string"}, "prompt": {"title": "Prompt", "type": "string"}}}, "Document": {"title": "Document", "required": ["page_content"], "type": "object", "properties": {"page_content": {"title": "Page Content", "type": "string"}, "metadata": {"title": "Metadata", "type": "object"}}, "description": "Class for storing a piece of text and associated metadata."}, "DocumentChunker": {"title": "DocumentChunker", "required": ["documents"], "type": "object", "properties": {"chunk_size": {"title": "Chunk Size", "type": "integer"}, "chunk_overlap": {"title": "Chunk Overlap", "type": "integer"}, "documents": {"title": "Documents", "type": "array", "items": {"$ref": "#/components/schemas/Document"}}}}, "HTTPValidationError": {"title": "HTTPValidationError", "type": "object", "properties": {"detail": {"title": "Detail", "type": "array", "items": {"$ref": "#/components/schemas/ValidationError"}}}}, "StoreInVectoDB": {"title": "StoreInVectoDB", "required": ["vectorstore", "embedding_model", "documents"], "type": "object", "properties": {"vectorstore": {"title": "Vectorstore", "type": "string"}, "embedding_model": {"title": "Embedding Model", "type": "string"}, "documents": {"title": "Documents", "type": "array", "items": {"$ref": "#/components/schemas/Document"}}}}, "ValidationError": {"title": "ValidationError", "required": ["loc", "msg", "type"], "type": "object", "properties": {"loc": {"title": "Location", "type": "array", "items": {"anyOf": [{"type": "string"}, {"type": "integer"}]}}, "msg": {"title": "Message", "type": "string"}, "type": {"title": "Error Type", "type": "string"}}}}}}
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "RAG Connector",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/v1/ingest/chunking": {
+      "post": {
+        "tags": [
+          "Data Ingestion"
+        ],
+        "summary": "Split Documents",
+        "description": "This endpoint is used to split a document into multiple documents based on the chunk size",
+        "operationId": "split_documents_api_v1_ingest_chunking_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DocumentChunker"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Split Documents Api V1 Ingest Chunking Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ingest/store": {
+      "post": {
+        "tags": [
+          "Data Ingestion"
+        ],
+        "summary": "Create Embeddings",
+        "description": "This endpoint is used to create embeddings for a list of documents, and store them in a vectorstore",
+        "operationId": "create_embeddings_api_v1_ingest_store_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StoreInVectoDB"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Create Embeddings Api V1 Ingest Store Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ingest/chatbot": {
+      "post": {
+        "tags": [
+          "Data Ingestion"
+        ],
+        "summary": "Chatbot",
+        "description": "This endpoint is used to fetch the top K documents from a vectorstore, based on a query and then send it as context to the LLM model",
+        "operationId": "chatbot_api_v1_ingest_chatbot_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatBotParameters"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Chatbot Api V1 Ingest Chatbot Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ChatBotParameters": {
+        "title": "ChatBotParameters",
+        "required": [
+          "vectorstore",
+          "embedding_model",
+          "prompt"
+        ],
+        "type": "object",
+        "properties": {
+          "vectorstore": {
+            "title": "Vectorstore",
+            "type": "string"
+          },
+          "embedding_model": {
+            "title": "Embedding Model",
+            "type": "string"
+          },
+          "prompt": {
+            "title": "Prompt",
+            "type": "string"
+          }
+        }
+      },
+      "Document": {
+        "title": "Document",
+        "required": [
+          "page_content"
+        ],
+        "type": "object",
+        "properties": {
+          "page_content": {
+            "title": "Page Content",
+            "type": "string"
+          },
+          "metadata": {
+            "title": "Metadata",
+            "type": "object"
+          }
+        },
+        "description": "Class for storing a piece of text and associated metadata."
+      },
+      "DocumentChunker": {
+        "title": "DocumentChunker",
+        "required": [
+          "documents"
+        ],
+        "type": "object",
+        "properties": {
+          "chunk_size": {
+            "title": "Chunk Size",
+            "type": "integer"
+          },
+          "chunk_overlap": {
+            "title": "Chunk Overlap",
+            "type": "integer"
+          },
+          "documents": {
+            "title": "Documents",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Document"
+            }
+          }
+        }
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "StoreInVectoDB": {
+        "title": "StoreInVectoDB",
+        "required": [
+          "vectorstore",
+          "embedding_model",
+          "documents"
+        ],
+        "type": "object",
+        "properties": {
+          "vectorstore": {
+            "title": "Vectorstore",
+            "type": "string"
+          },
+          "embedding_model": {
+            "title": "Embedding Model",
+            "type": "string"
+          },
+          "documents": {
+            "title": "Documents",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Document"
+            }
+          }
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
