@@ -10,8 +10,8 @@ RUN pipenv install --system --deploy --ignore-pipfile
 COPY ./app /app
 COPY main.py /
 
-EXPOSE 7255
+EXPOSE 7001
 
 WORKDIR /
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "7255", "--forwarded-allow-ips", "'*'"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "7001", "--forwarded-allow-ips", "'*'"]

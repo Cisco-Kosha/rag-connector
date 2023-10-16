@@ -2,12 +2,81 @@
   "version": "2.0.0",
   "fields": [
     {
-      "field": "AUTH_TYPE",
-      "displayName": "Auth Type for the API",
-      "type": "String",
-      "description": "Auth Type",
-      "default": "NONE",
-      "helpSection": "Auth Type"
+      "field": "CHROMADB_CONNECTOR_SERVER_URL",
+        "displayName": "ChromaDB Connector Server URL",
+        "type": "String",
+        "description": "ChromaDB Connector Server URL",
+         "minLength": 1,
+        "maxLength": 60,
+        "example": "http://localhost:8010",
+        "helpSection": "ChromaDB Connector Server URL",
+        "required": true
+    },
+    {
+      "field": "CHROMADB_SERVER_API_KEY",
+        "displayName": "ChromaDB Connector Server API Token",
+        "type": "String",
+        "description": "ChromaDB Connector Server API Token",
+         "minLength": 1,
+        "maxLength": 60,
+        "example": "test-token",
+        "helpSection": "ChromaDB Connector Server API Token",
+        "required": true
+    },
+    {
+      "field": "CHROMADB_SERVER_URL",
+        "displayName": "ChromaDB Server URL",
+        "type": "String",
+        "description": "ChromaDB Server URL",
+         "minLength": 1,
+        "maxLength": 60,
+        "example": "http://localhost:8000",
+        "helpSection": "ChromaDB Server URL",
+        "required": true
+    },
+    {
+      "field": "DEFAULT_COLLECTION_NAME",
+        "displayName": "ChromaDB default collection name",
+        "type": "String",
+        "description": "ChromaDB default collection name",
+         "minLength": 1,
+        "maxLength": 60,
+        "example": "default_collection",
+        "helpSection": "ChromaDB default collection name",
+        "required": true
+    },
+    {
+      "field": "OPENAI_API_KEY",
+        "displayName": "OpenAI API Key",
+        "type": "String",
+        "description": "OpenAI API Key",
+         "minLength": 1,
+        "maxLength": 80,
+        "example": "abcefg",
+        "helpSection": "OpenAI API Key",
+        "required": true
+    },
+    {
+      "field": "OPENAI_CONNECTOR_SERVER_URL",
+        "displayName": "OpenAI Connector Server URL",
+        "type": "String",
+        "description": "OpenAI Connector Server URL",
+         "minLength": 1,
+        "maxLength": 60,
+        "example": "http://localhost:8010",
+        "helpSection": "OpenAI Connector Server URL",
+        "required": true
+    },
+    {
+      "field": "JWT_TOKEN",
+        "displayName": "JWT Token for accessing chromadb and openai connectors in Kosha",
+        "type": "String",
+        "description": "ChromaDB Connector Server URL",
+         "minLength": 1,
+        "maxLength": 180,
+        "example": "http://localhost:8010",
+        "helpSection": "Check if you have access to chromadb and openai connectors in Kosha, and then fetch the JWT token from your user settings page paste it here.",
+        "required": true
     }
   ]
 }
