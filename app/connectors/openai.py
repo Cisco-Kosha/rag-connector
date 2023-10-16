@@ -4,14 +4,14 @@ import requests
 
 
 class OpenAIConnector(object):
-    host_url: str = "https://api.openai.com"
-    token: str = ""
+    host_url: str = None
+    token: str = None
 
-    def __init__(self, host_url: str = None, token: str = None):
+    def __init__(self, host_url: str = None, jwt_token: str = None):
         if host_url:
             self.host_url = host_url
-        if token:
-            self.token = token
+        if jwt_token:
+            self.token = jwt_token
 
     def create_embeddings(self, model, input: List[Any]):
         res = requests.post(self.host_url + "/v1/embeddings", json={"model": model, "input": input},

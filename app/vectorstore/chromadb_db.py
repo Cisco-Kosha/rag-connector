@@ -4,6 +4,8 @@ from app.embeddings.openai import OpenAI
 
 from app.connectors.chroma import ChromaDBConnector
 
+from app.core.config import settings, logger
+
 default_collection_name: str = "default_collection"
 
 
@@ -11,7 +13,7 @@ class Chroma(object):
 
     def __init__(
             self,
-            collection_name: str = default_collection_name,
+            collection_name: str = settings.DEFAULT_COLLECTION_NAME,
             embedding_function: Optional[str] = None,
             persist_directory: Optional[str] = None,
             relevance_score_fn: Optional[Callable[[float], float]] = None,
@@ -22,7 +24,7 @@ class Chroma(object):
         self._persist_directory = persist_directory
         self._relevance_score_fn = relevance_score_fn
 
-        self.chroma_connector = ChromaDBConnector()
+        self.chroma_connector = ChromaDBConnector(host_url=settings.CHROMADB_CONNECTOR_SERVER_URL, jwt_token=settings.JWT_TOKEN)
         self._collection = None
 
     def add_texts(
@@ -84,7 +86,10 @@ class Chroma(object):
                 )
                 ids_with_metadata = [ids[idx] for idx in non_empty_ids]
                 try:
-                    self.chroma_connector.upsert_documents(collection_id=str(self._collection['id']), ids=ids_with_metadata,
+                    print(ids_with_metadata)
+                    print(self._collection['id'])
+                    self.chroma_connector.upsert_documents(collection_id=str(self._collection['id']),
+                                                           ids=ids_with_metadata,
                                                            embeddings=embeddings_with_metadatas,
                                                            metadatas=metadatas,
                                                            documents=texts_with_metadatas)

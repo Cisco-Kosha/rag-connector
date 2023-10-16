@@ -7,6 +7,7 @@ import tiktoken
 from app.core.config import logger
 
 from app.connectors.openai import OpenAIConnector
+from app.core.config import settings, logger
 
 
 class OpenAI(object):
@@ -25,7 +26,8 @@ class OpenAI(object):
     allowed_special: Union[Literal["all"], Set[str]] = set()
     disallowed_special: Union[Literal["all"], Set[str], Sequence[str]] = "all"
     skip_empty: bool = False
-    openai_connector: OpenAIConnector = OpenAIConnector()
+    openai_connector: OpenAIConnector = OpenAIConnector(host_url=settings.OPENAI_CONNECTOR_SERVER_URL,
+                                                        jwt_token=settings.JWT_TOKEN)
 
     class Config:
         """Configuration for this pydantic object."""
