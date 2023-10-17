@@ -137,19 +137,24 @@
             "ChatBotParameters": {
                 "title": "ChatBotParameters",
                 "required": [
-                    "vectorstore",
-                    "embedding_model",
                     "prompt"
                 ],
                 "type": "object",
                 "properties": {
                     "vectorstore": {
                         "title": "Vectorstore",
-                        "type": "string"
+                        "type": "string",
+                        "default": "chromadb"
                     },
                     "embedding_model": {
                         "title": "Embedding Model",
-                        "type": "string"
+                        "type": "string",
+                        "default": "openai"
+                    },
+                    "temperature": {
+                        "title": "Temperature",
+                        "type": "number",
+                        "default": 0
                     },
                     "prompt": {
                         "title": "Prompt",
@@ -215,19 +220,19 @@
             "StoreInVectoDB": {
                 "title": "StoreInVectoDB",
                 "required": [
-                    "vectorstore",
-                    "embedding_model",
                     "documents"
                 ],
                 "type": "object",
                 "properties": {
                     "vectorstore": {
                         "title": "Vectorstore",
-                        "type": "string"
+                        "type": "string",
+                        "default": "chromadb"
                     },
                     "embedding_model": {
                         "title": "Embedding Model",
-                        "type": "string"
+                        "type": "string",
+                        "default": "openai"
                     },
                     "documents": {
                         "title": "Documents",

@@ -40,8 +40,8 @@ class VectorStore(BaseModel):
 
 
 class StoreInVectoDB(BaseModel):
-    vectorstore: str
-    embedding_model: str
+    vectorstore: Optional[str] = "chromadb"
+    embedding_model: Optional[str] = "openai"
     documents: list[Document]
 
     class Config:
@@ -61,17 +61,3 @@ class StoreInVectoDB(BaseModel):
             }
         }
 
-
-class ChatBotParameters(BaseModel):
-    vectorstore: str
-    embedding_model: str
-    prompt: str
-
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "vectorstore": "chromadb",
-                "embedding_model": "openai",
-                "prompt": "What is A+B"
-            }
-        }

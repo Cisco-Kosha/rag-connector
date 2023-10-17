@@ -20,7 +20,7 @@ from app.connectors.chroma import ChromaDBConnector
 
 from app.core.config import settings, logger
 
-from app.schemas.ingestion import ChatBotParameters
+from app.schemas.retrieval import ChatBotParameters
 
 router = APIRouter()
 DEFAULT_K = 4
@@ -64,7 +64,7 @@ def chatbot(properties: ChatBotParameters) -> Any:
                 host=settings.CHROMADB_SERVER_URL, port="80", headers={"Authorization": "Bearer " + settings.CHROMADB_SERVER_API_KEY})
             # chat = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo", verbose=True,
             #                  openai_api_base=settings.OPENAI_CONNECTOR_SERVER_URL, openai_api_type=settings.JWT_TOKEN)
-            chat = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo", verbose=True)
+            chat = ChatOpenAI(temperature=properties.temperature, model_name="gpt-3.5-turbo", verbose=True)
             db = Chroma(embedding_function=embeddings,
                         collection_name=settings.DEFAULT_COLLECTION_NAME, client=chromadb_client)
             qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=db.as_retriever())
