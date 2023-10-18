@@ -4,6 +4,7 @@ from typing import Any, List
 
 
 from fastapi import APIRouter
+from langchain.schema import Document
 
 from app.vectorstore.chromadb_db import Chroma as RAGChroma
 
@@ -35,7 +36,11 @@ def split_documents(body: DocumentChunker) -> Any:
         text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=chunk_size, chunk_overlap=chunk_overlap, separators=["\n\n", "\n", " ", ""]
         )
-        documents = text_splitter.split_documents(documents=body.documents)
+
+        if isinstance(body.documents, str):
+            documents = text_splitter.split_documents(documents=[Document(page_content=body.documents, metadata={})])
+        else:
+            documents = text_splitter.split_documents(documents=body.documents)
     except Exception as e:
         logger.error(e)
         return Response(status_code=400, content=str(e))

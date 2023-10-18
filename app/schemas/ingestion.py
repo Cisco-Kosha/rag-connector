@@ -7,7 +7,7 @@ from pydantic import BaseModel
 class DocumentChunker(BaseModel):
     chunk_size: Optional[Union[int, None]]
     chunk_overlap: Optional[Union[int, None]]
-    documents: list[Document]
+    documents: Union[str, list[Document]]
 
     class Config:
         json_schema_extra = {

@@ -197,10 +197,17 @@
                     },
                     "documents": {
                         "title": "Documents",
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/Document"
-                        }
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Document"
+                                }
+                            }
+                        ]
                     }
                 }
             },
